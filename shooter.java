@@ -15,22 +15,22 @@ import frc.robot.Util.Dashboard.HardwareFaultTracker;
 
 public class Shooter implements Subsystem {
 
-    /* ---------------- Hardware ---------------- */
+    //Hardware
 
     private final TalonFX shooterMotor =
         new TalonFX(HardwareConstants.SHOOTER_CAN);
 
-    /* ---------------- Control ---------------- */
+    // Control
 
     // Phoenix expects rotations per second
     private final VelocityVoltage rpmRequest = new VelocityVoltage(0.0);
 
-    /* ---------------- Alerts ---------------- */
+    // Alerts
 
     private final Alert shooterAlert =
         new Alert("Shooter Motor Error", AlertType.kError);
 
-    /* ---------------- Constructor ---------------- */
+    // Construction
 
     public Shooter() {
 
@@ -53,12 +53,9 @@ public class Shooter implements Subsystem {
         shooterMotor.getConfigurator().apply(config);
     }
 
-    /* ---------------- Shooter Control ---------------- */
+    // Shooter Control
 
-    /**
-     * Sets the shooter speed in RPM
-     * @param rpm desired shooter speed
-     */
+    // Shootr speed in RPM
     public void setRPM(double rpm) {
         shooterMotor.setControl(
             rpmRequest.withVelocity(rpm / 60.0)
@@ -70,17 +67,17 @@ public class Shooter implements Subsystem {
         shooterMotor.set(0.0);
     }
 
-    /** @return current shooter speed in RPM */
+    //return current shooter speed in RPM
     public double getRPM() {
         return shooterMotor.getVelocity().getValueAsDouble() * 60.0;
     }
 
-    /** @return true if shooter is within tolerance of target RPM */
+    // return true if shooter is within tolerance of target RPM
     public boolean atRPM(double targetRPM, double toleranceRPM) {
         return Math.abs(getRPM() - targetRPM) <= toleranceRPM;
     }
 
-    /* ---------------- Health ---------------- */
+    // checkHardware
 
     public void checkHardware() {
         HardwareFaultTracker.checkFault(
