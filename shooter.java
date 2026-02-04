@@ -62,7 +62,7 @@ public class Shooter implements Subsystem {
         );
     }
 
-    /** Stops the shooter */
+    //Stop the shooting
     public void stop() {
         shooterMotor.set(0.0);
     }
